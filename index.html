@@ -21,11 +21,32 @@
     const btn = document.getElementById("btn")
 
     btn.addEventListener("click", handleclick)
-function handleclick(){
-console.log("Člicked")
+    function handleclick(){
+    let numValue = num1Input.value
+    let numValue2 = num2Input.value
+    let opValue = op.value
 
+let result 
+    switch (op) {
+        case "+":
+            result = numValue + numValue2
+            break;
+        case "-":
+            result = numValue - numValue2
+            break;
+         case "*":
+            result = numValue * numValue2
+            break;
+         case "/":
+            result = numValue / numValue2
+            break;
+        default:
+            break;
 
-}
+            
+    }
+    output.innerHTML = result
+    }
 
 
 
