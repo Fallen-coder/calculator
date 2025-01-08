@@ -14,7 +14,7 @@
     <script>
 
     const num1Input = document.getElementById("num1")
-    const operator = document.getElementById("oparator")
+    const operator = document.getElementById("operator")
     const num2Input = document.getElementById("num2")
     const output = document.getElementById("output")
 
@@ -24,16 +24,38 @@
 
     function handleclick(){
 
-    let numValue = parseFloat(num1Input.value)
-    let numValue2 = parseFloat(num2Input.value)
-    let op = operator.value
+    let numValue = parseFloat(num1Input.value);
+    let numValue2 = parseFloat(num2Input.value);
+    let op = operator.value;
 
-    let result = calculate(numValue , numValue2 , op)
+    let result
+    let errors = validateUserInput(numValue, numValue2 , op);
+    if( errors.length > 0){
+    result = errors.join("<br>")
+    } else{
 
     
-    output.innerHTML = result
+    let result = calculate(numValue , numValue2 , op);
     }
 
+
+    
+    output.innerHTML = result;
+    }
+
+function validateUserInput(n1 , n2 ,op){
+    let ary =[]
+    if (isNaN(n1)) {
+                ary.push("Pirmais skaitlis ir nepareizs.");
+            }
+            if (isNaN(n2)) {
+                ary.push("Otrais skaitlis ir nepareizs.");
+            }
+        
+    
+return ary
+    
+}
 
 function calculate(n1 , n2 , op){
 let result 
@@ -51,7 +73,7 @@ let result
             break;
 
          case "/":
-            result = n1 / numValue2
+            result = n1 / n2
             break;
 
         default:
