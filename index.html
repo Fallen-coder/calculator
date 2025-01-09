@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
     <style>
-        
+        .errors{
+            color: red;
+        }
+        .good{
+            color: rgb(59, 210, 59);
+        }
     </style>
 </head>
 <body>
@@ -13,6 +18,7 @@
     <input type="text" id="operator">
     <input type="text" id="num2">
     <button id="btn">Reiķināt</button>
+    <button id="clean">Clear</button>
     <p id="output"></p>
     <script>
 
@@ -22,24 +28,39 @@
     const output = document.getElementById("output")
     const allowedOperators = ["+", "-", "*", "/"]
     const btn = document.getElementById("btn")
+    const clean = document.getElementById("clean")
 
+    clean.addEventListener("click", cleanclick)
     btn.addEventListener("click", handleclick)
 
+function cleanclick(){
+    output.innerText = ""
+    num1Input.value =""
+    num2Input.value =""
+    operator.value= ""
+    output.classList.remove("errors")
+    output.classList.remove("good")
+}
     function handleclick(){
 
     let numValue = parseFloat(num1Input.value);
     let numValue2 = parseFloat(num2Input.value);
     let op = operator.value;
 
+    output.classList.remove("errors")
+    output.classList.remove("good")
+
     let result
     let errors = validateUserInput(numValue, numValue2 , op);
     if( errors.length > 0){
         result = formatErrorsInHtml(errors)
     // result = errors.join("<br>")
+    output.classList.add("errors")
     } else{    
-        
-   result = calculate(numValue , numValue2 , op);
-    }
+        output.classList.add("good")
+        let resultcal = calculate(numValue, numValue2, op);
+        result = `rezultāts: ${resultcal}`;
+}
     output.innerHTML = result;
     }
 
@@ -94,12 +115,12 @@ htmlErrorsAsString += `<li>${errorsAry[i]}</li>`
 
 }
 return `<ul>${htmlErrorsAsString}</ul>`
-
-
-
-
-
     }
+
+
+
+
+
     </script>
 </body>
 </html>
